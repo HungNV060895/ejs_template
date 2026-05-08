@@ -1,0 +1,379 @@
+// ============================================================
+// _vars.scss
+// ============================================================
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:string';
+
+// ============================================================
+// 1. Google Fonts
+// ============================================================
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Noto+Serif+JP:wght@400;500;600&family=Zen+Kaku+Gothic+New&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+
+
+// ============================================================
+// 2. Color
+// ============================================================
+// $color-primary : #000;
+// $color-text    : #333;
+// $color-bg      : #fff;
+
+
+
+
+// ============================================================
+// 3. Typography
+// ============================================================
+$font-base : "Zen Kaku Gothic New", sans-serif;
+$font-jp   : "Noto Serif JP", serif;       // weight: 400, 500, 600
+$font-en   : "Cormorant Garamond", serif;  // weight: 300–700
+$font-lora : "Lora", serif;                // weight: 400–700
+
+
+
+
+// ============================================================
+// 4. Breakpoints
+// ============================================================
+$breakpoints: (
+	"xs"     : "screen and (max-width: 374px)",
+	"sm"     : "screen and (max-width: 640px)",
+	"md"     : "screen and (max-width: 834px)",
+	"lg"     : "screen and (max-width: 990px)",
+	"tb"     : "screen and (max-width: 1024px)",
+	"xl"     : "screen and (max-width: 1200px)",
+	"xxl"    : "screen and (max-width: 1500px)",
+	"lp"     : "screen and (max-width: 1680px)",
+	"xs-min" : "screen and (min-width: 375px)",
+	"sm-min" : "screen and (min-width: 641px)",
+	"md-min" : "screen and (min-width: 835px)",
+	"lg-min" : "screen and (min-width: 991px)",
+	"tb-min" : "screen and (min-width: 1025px)",
+	"xl-min" : "screen and (min-width: 1201px)",
+	"xxl-min": "screen and (min-width: 1501px)",
+	"lp-min" : "screen and (min-width: 1681px)",
+) !default;
+
+
+
+
+
+// ============================================================
+// 5. Media Query mixin
+// ============================================================
+@mixin mq($breakpoint: md) {
+	@media #{map.get($breakpoints, $breakpoint)} {
+		@content;
+	}
+}
+
+
+
+
+// ============================================================
+// 6. Typography mixins & functions
+// ============================================================
+
+// Font family + weight
+@mixin font-fm($family, $weight) {
+	font-family: $family;
+	font-weight: $weight;
+}
+
+// Font size (px → rem)
+@mixin font-size($px) {
+	font-size: ($px * 0.1) + rem;
+}
+
+// Font size theo vw
+// Usage: @include font-vw(20); hoặc @include font-vw(20, 1200);
+@mixin font-vw($fontSize, $viewWidth: 834) {
+	font-size: math.div($fontSize,$viewWidth) * 100vw;
+}
+
+// Usage: @include fts(16, 28);
+@mixin fts($fts, $lin: 24) {
+	font-size: #{$fts}px;
+	font-size: #{$fts * 0.1}rem;
+	line-height: math.div($lin, $fts);
+}
+
+
+
+
+// ============================================================
+// 7. Position helpers
+// ============================================================
+@mixin v-align {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+@mixin h-align {
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+}
+
+@mixin v-h-align {
+	inset: 0;
+	margin: auto;
+}
+
+
+
+
+// ============================================================
+// 8. Transition & hover
+// ============================================================
+@mixin smooth-transition {
+	transition: all 0.3s ease;
+}
+
+// Usage: @include transition(opacity, 0.3s);
+@mixin transition($property: all, $duration: 0.45s, $ease: cubic-bezier(0.65, 0, 0.076, 1)) {
+	transition: $property $duration $ease;
+}
+
+@mixin fn-hover {
+	@media (any-hover: hover) {
+		transition: all 0.2s;
+		&:hover {
+			opacity: 0.7;
+		}
+	}
+}
+
+
+
+
+// ============================================================
+// 9. Flexbox mixin
+// ============================================================
+// Usage: @include flex(between, center, wrap);
+@mixin flex($justify: 0, $align: 0, $wrap: 0, $wrap-align: 0, $column: 0) {
+	display: flex;
+	@if $justify == start   { justify-content: flex-start; }
+	@else if $justify == end    { justify-content: flex-end; }
+	@else if $justify == center { justify-content: center; }
+	@else if $justify == between{ justify-content: space-between; }
+	@else if $justify == around { justify-content: space-around; }
+
+	@if $align == start     { align-items: flex-start; }
+	@else if $align == end      { align-items: flex-end; }
+	@else if $align == center   { align-items: center; }
+	@else if $align == baseline { align-items: baseline; }
+	@else if $align == stretch  { align-items: stretch; }
+
+	@if $wrap == nowrap     { flex-wrap: nowrap; }
+	@else if $wrap == wrap      { flex-wrap: wrap; }
+	@else if $wrap == reverse   { flex-wrap: wrap-reverse; }
+
+	@if $wrap-align == start    { align-content: flex-start; }
+	@else if $wrap-align == end     { align-content: flex-end; }
+	@else if $wrap-align == center  { align-content: center; }
+	@else if $wrap-align == between { align-content: space-between; }
+	@else if $wrap-align == around  { align-content: space-around; }
+	@else if $wrap-align == stretch { align-content: stretch; }
+
+	@if $column == 1 { flex-direction: column; }
+}
+
+
+
+
+// ============================================================
+// 10. Object-fit
+// ============================================================
+// Usage: @include object-fit(cover);
+//        @include object-fit(contain, top center);
+@mixin object-fit($value: cover, $position: null) {
+	object-fit: $value;
+	@if $position {
+		object-position: $position;
+	}
+}
+
+
+
+
+// ============================================================
+// 11. Aspect ratio
+// ============================================================
+@mixin aspect-ratio($width, $height) {
+	position: relative;
+	overflow: hidden;
+	&::before {
+		display: block;
+		content: "";
+		padding-top: math.div($height, $width) * 100%;
+	}
+
+	& > :first-child {
+		position: absolute;
+		@include v-h-align;
+		width: 100%;
+		height: 100%;
+		@include object-fit;
+	}
+}
+
+
+
+
+// ============================================================
+// 12. Pseudo-elements
+// ============================================================
+@mixin p-before($w, $h) {
+	&::before {
+		content: "";
+		display: inline-block;
+		position: absolute;
+		width: $w;
+		height: $h;
+		@content;
+	}
+}
+
+@mixin p-after($w, $h) {
+	&::after {
+		content: "";
+		display: inline-block;
+		position: absolute;
+		width: $w;
+		height: $h;
+		@content;
+	}
+}
+
+
+
+
+// ============================================================
+// 13. Text utilities
+// ============================================================
+
+// Text outline / stroke
+@mixin txt-stroke($color, $size) {
+	-webkit-text-fill-color: $color;
+	-webkit-text-stroke: $size $color;
+}
+
+
+@mixin u-ellipsis-s {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+// Usage: @include u-ellipsis-m(3);
+@mixin u-ellipsis-m($line) {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: $line;
+	overflow: hidden;
+}
+
+
+
+
+// ============================================================
+// 14. Font Awesome
+// ============================================================
+// Usage: @include ft-awesome(arrow-r);
+//        @include ft-awesome('f123');
+@mixin ft-awesome($no) {
+	font-family: "Font Awesome 6 Free";
+	font-weight: 900;
+	@if      $no == arrow-l  { content: "\f060"; }
+	@else if $no == arrow-r  { content: "\f061"; }
+	@else if $no == c-up     { content: "\f077"; }
+	@else if $no == c-down   { content: "\f078"; }
+	@else if $no == c-left   { content: "\f053"; }
+	@else if $no == c-right  { content: "\f054"; }
+	@else {                    content: #{"\"\\"}#{$no}#{"\""}; }
+}
+
+
+
+
+// ============================================================
+// 15. Form reset
+// ============================================================
+@mixin formReset {
+	input, button, textarea, select {
+		margin: 0;
+		padding: 0;
+		background: none;
+		border: none;
+		border-radius: 0;
+		outline: none;
+		appearance: none;
+
+		&:active,
+		&:focus {
+			outline: 0;
+		}
+	}
+
+	button {
+		cursor: pointer;
+	}
+}
+
+
+
+
+// ============================================================
+// 16. Size functions (px → vw / clamp)
+// ============================================================
+
+@function strip-unit($number) {
+	@if type-of($number) == "number" and not unitless($number) {
+		@return math.div($number, $number * 0 + 1);
+	}
+	@return $number;
+}
+
+// Usage: width: vw(40px);  |  width: vw(40px, 1200px);
+@function vw($px, $base: 834px) {
+	@if unit($px) != "px" {
+		@warn "vw(): chỉ nhận giá trị px, nhận được #{unit($px)}";
+		@return $px;
+	}
+	@return math.div(strip-unit($px), strip-unit($base)) * 100vw;
+}
+
+@function u-max-size($max, $size, $viewWidth: 834) {
+	$vw: math.div($size, $viewWidth) * 100;
+	@return unquote("max(#{$max}, #{$vw}vw)");
+}
+
+@function u-min-size($min, $size, $viewWidth: 1200) {
+	$vw: math.div($size, $viewWidth) * 100;
+	@return unquote("min(#{$min}, #{$vw}vw)");
+}
+
+// clamp() fluid typography
+// Ref: https://modern-fluid-typography.vercel.app/
+// Usage: font-size: c-clamp(14px, 2vw + 1rem, 20px);
+@function c-clamp($min, $fluid, $max) {
+	@return unquote("clamp(#{$min}, #{$fluid}, #{$max})");
+	// ✅ Tách $fluidVw và $relativeRem thành 1 tham số $fluid để dễ dùng hơn
+}
+
+
+
+
+// ============================================================
+// 17. Margin utility classes (PC / SP)
+// ============================================================
+@for $i from 0 through 100 {
+	@include mq(md-min) {
+		.mbpc-#{$i} { margin-bottom: #{$i}px !important; }
+	}
+	@include mq {
+		.mbsp-#{$i} { margin-bottom: #{$i}px !important; }
+	}
+}

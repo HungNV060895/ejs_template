@@ -1,0 +1,24 @@
+@use "vars" as *;
+
+/* ====================================================
+Layout
+==================================================== */
+.wrapper{
+	padding-top: 115px;
+	@include mq(tb){
+		padding-top: 70px;
+	}
+}
+
+.inner{
+	width: 90%;
+	margin: 0 auto;
+	max-width: 1200px;
+	@include mq() {
+		width: 100%;
+		padding: 0 5%
+	}
+}
+
+
+

@@ -1,0 +1,717 @@
+@use 'vars' as *;
+
+
+// Variables
+$color-primary: #0033a0;
+$color-secondary: #002277;
+$color-text: #333333;
+$color-text-light: #666666;
+$color-bg-light: #f8f9fa;
+$color-border: #e0e0e0;
+$color-white: #ffffff;
+
+$font-family-base: 'Noto Sans JP', sans-serif;
+$container-width: 1200px;
+$transition-speed: 0.3s;
+
+// Mixins
+@mixin container {
+	max-width: $container-width;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+@mixin flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@mixin flex-between {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+// Base
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: $font-family-base;
+	color: $color-text;
+	line-height: 1.6;
+	background-color: $color-white;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+	transition: color $transition-speed, opacity $transition-speed;
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+ul {
+	list-style: none;
+}
+
+// Buttons
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 14px 32px;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: pointer;
+	transition: all $transition-speed;
+	border: 1px solid transparent;
+
+	i {
+		margin-left: 8px;
+		font-size: 12px;
+	}
+
+	&--primary {
+		background-color: $color-primary;
+		color: $color-white;
+
+		&:hover {
+			background-color: $color-secondary;
+		}
+	}
+
+	&--outline {
+		background-color: $color-white;
+		color: $color-primary;
+		border-color: $color-primary;
+
+		&:hover {
+			background-color: $color-bg-light;
+		}
+	}
+
+	&--white {
+		background-color: $color-white;
+		color: $color-primary;
+
+		&:hover {
+			background-color: $color-bg-light;
+		}
+	}
+}
+
+// Header
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	background-color: $color-white;
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+	&__inner {
+		@include flex-between;
+		padding-left: 20px;
+	}
+
+	&__logo-img {
+		height: 30px;
+	}
+
+	&__nav {
+		flex: 1;
+		display: flex;
+		justify-content: center;
+	}
+
+	&__nav-list {
+		display: flex;
+		gap: 30px;
+	}
+
+	&__nav-link {
+		font-size: 14px;
+		font-weight: 500;
+		padding: 24px 0;
+		display: block;
+
+		&:hover {
+			color: $color-primary;
+		}
+	}
+
+	&__actions {
+		display: flex;
+		height: 70px;
+	}
+
+	&__action-btn {
+		@include flex-center;
+		flex-direction: column;
+		width: 120px;
+		font-size: 12px;
+		color: $color-white;
+		gap: 6px;
+
+		&--contact {
+			background-color: $color-primary;
+
+			&:hover {
+				background-color: lighten($color-primary, 5%);
+			}
+		}
+
+		&--search {
+			background-color: $color-secondary;
+
+			&:hover {
+				background-color: lighten($color-secondary, 5%);
+			}
+		}
+	}
+}
+
+// Hero
+.hero {
+	position: relative;
+	height: 500px;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+
+	&__bg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-image: url('/assets/hero-bg.jpg');
+		background-size: cover;
+		background-position: center;
+		z-index: 1;
+
+		&::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 40%, rgba(255, 255, 255, 0) 100%);
+		}
+	}
+
+	&__container {
+		@include container;
+		position: relative;
+		z-index: 2;
+		width: 100%;
+	}
+
+	&__title {
+		font-size: 42px;
+		color: $color-primary;
+		line-height: 1.4;
+		margin-bottom: 24px;
+	}
+
+	&__desc {
+		font-size: 16px;
+		font-weight: 500;
+		line-height: 1.8;
+		margin-bottom: 32px;
+	}
+
+	&__buttons {
+		display: flex;
+		gap: 16px;
+	}
+}
+
+// Ticker
+.ticker {
+	border-bottom: 1px solid $color-border;
+	background-color: $color-white;
+
+	&__container {
+		@include container;
+		@include flex-center;
+		justify-content: flex-start;
+		padding: 16px 20px;
+		font-size: 14px;
+	}
+
+	&__badge {
+		color: $color-primary;
+		font-weight: bold;
+		margin-right: 24px;
+	}
+
+	&__date {
+		color: $color-text-light;
+		margin-right: 24px;
+	}
+
+	&__text {
+		flex: 1;
+	}
+
+	&__link {
+		color: $color-primary;
+		font-weight: bold;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+}
+
+// General Section
+.section {
+	padding: 80px 0;
+
+	&__container {
+		@include container;
+	}
+
+	&__title {
+		font-size: 32px;
+		text-align: center;
+		color: $color-primary;
+		margin-bottom: 16px;
+		position: relative;
+
+		&::after {
+			content: '';
+			display: block;
+			width: 40px;
+			height: 2px;
+			background-color: $color-primary;
+			margin: 16px auto 0;
+		}
+
+		&--left {
+			text-align: left;
+			margin-bottom: 0;
+
+			&::after {
+				display: none;
+			}
+		}
+	}
+
+	&__subtitle {
+		text-align: center;
+		margin-bottom: 48px;
+		line-height: 1.8;
+	}
+
+	&__header {
+		@include flex-between;
+		margin-bottom: 32px;
+		border-bottom: 2px solid $color-primary;
+		padding-bottom: 16px;
+	}
+
+	&__link {
+		color: $color-primary;
+		font-weight: bold;
+		font-size: 14px;
+	}
+
+	&__action {
+		text-align: center;
+		margin-top: 40px;
+	}
+}
+
+// Services
+.services {
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+}
+
+.service-card {
+	background-color: $color-white;
+	border: 1px solid $color-border;
+	border-radius: 8px;
+	padding: 32px 24px;
+	text-align: center;
+	position: relative;
+	transition: box-shadow $transition-speed;
+
+	&:hover {
+		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+		opacity: 1;
+	}
+
+	&__icon-wrapper {
+		height: 60px;
+		margin-bottom: 20px;
+		@include flex-center;
+	}
+
+	&__icon {
+		max-height: 100%;
+	}
+
+	&__title {
+		font-size: 18px;
+		color: $color-primary;
+		margin-bottom: 16px;
+	}
+
+	&__desc {
+		font-size: 14px;
+		color: $color-text-light;
+		text-align: left;
+	}
+
+	&__arrow {
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+		color: $color-primary;
+	}
+}
+
+// Strengths
+.strengths {
+	background-color: $color-bg-light;
+
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 24px;
+		margin-top: 48px;
+	}
+}
+
+.strength-card {
+	background-color: $color-white;
+	border: 1px solid $color-border;
+	border-radius: 8px;
+	padding: 32px;
+	display: flex;
+	align-items: flex-start;
+	gap: 24px;
+
+	&__icon-wrapper {
+		flex-shrink: 0;
+		width: 80px;
+	}
+
+	&__icon {
+		width: 100%;
+	}
+
+	&__title {
+		font-size: 18px;
+		color: $color-primary;
+		margin-bottom: 12px;
+	}
+
+	&__desc {
+		font-size: 14px;
+		color: $color-text-light;
+	}
+}
+
+// Cases
+.cases {
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+}
+
+.case-card {
+	background-color: $color-white;
+	border: 1px solid $color-border;
+	border-radius: 8px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+
+	&:hover {
+		box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+		opacity: 1;
+	}
+
+	&__img-wrapper {
+		position: relative;
+		height: 160px;
+	}
+
+	&__img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	&__badge {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		background-color: $color-white;
+		padding: 4px 12px;
+		font-size: 12px;
+		font-weight: bold;
+	}
+
+	&__content {
+		padding: 24px;
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__title {
+		font-size: 18px;
+		color: $color-primary;
+		margin-bottom: 12px;
+	}
+
+	&__desc {
+		font-size: 14px;
+		color: $color-text-light;
+		margin-bottom: 24px;
+		flex: 1;
+	}
+
+	&__link {
+		color: $color-primary;
+		font-size: 14px;
+		font-weight: bold;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+}
+
+// News
+.news {
+	padding-top: 0;
+
+	&__list {
+		border-top: 1px solid $color-border;
+	}
+
+	&__item {
+		border-bottom: 1px solid $color-border;
+	}
+}
+
+.news-card {
+	display: flex;
+	align-items: center;
+	padding: 20px 10px;
+
+	&:hover {
+		background-color: $color-bg-light;
+		opacity: 1;
+	}
+
+	&__meta {
+		display: flex;
+		align-items: center;
+		width: 250px;
+		gap: 20px;
+		flex-shrink: 0;
+	}
+
+	&__date {
+		font-size: 14px;
+		color: $color-text-light;
+	}
+
+	&__badge {
+		font-size: 12px;
+		padding: 4px 12px;
+		border-radius: 20px;
+		background-color: $color-bg-light;
+		min-width: 100px;
+		text-align: center;
+
+		&--notice {
+			background-color: #f0f0f0;
+		}
+
+		&--press {
+			background-color: #e6f2ff;
+			color: $color-primary;
+		}
+
+		&--seminar {
+			background-color: #fff0b3;
+			color: #b38000;
+		}
+	}
+
+	&__title {
+		flex: 1;
+		font-size: 15px;
+		font-weight: normal;
+	}
+
+	&__arrow {
+		color: $color-primary;
+	}
+}
+
+// CTA Banner
+.cta-banner {
+	background-color: $color-primary;
+	color: $color-white;
+	padding: 40px 0;
+
+	&__container {
+		@include container;
+		@include flex-between;
+	}
+
+	&__content {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+	}
+
+	&__icon-wrapper {
+		width: 64px;
+		height: 64px;
+		background-color: $color-white;
+		border-radius: 50%;
+		@include flex-center;
+		color: $color-primary;
+		font-size: 32px;
+	}
+
+	&__title {
+		font-size: 20px;
+		margin-bottom: 8px;
+	}
+
+	&__desc {
+		font-size: 14px;
+		opacity: 0.9;
+	}
+}
+
+// Footer
+.footer {
+	background-color: #001a4d;
+	color: $color-white;
+
+	&__container {
+		@include container;
+	}
+
+	&__top {
+		display: flex;
+		padding: 60px 0;
+		gap: 40px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	&__company {
+		width: 250px;
+		flex-shrink: 0;
+	}
+
+	&__logo {
+		height: 30px;
+		margin-bottom: 24px;
+	}
+
+	&__address,
+	&__tel {
+		font-size: 12px;
+		line-height: 1.8;
+		color: #b3c6ff;
+	}
+
+	&__address {
+		margin-bottom: 12px;
+	}
+
+	&__nav {
+		flex: 1;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__nav-col {
+		flex: 1;
+	}
+
+	&__nav-title {
+		font-size: 14px;
+		margin-bottom: 16px;
+		font-weight: bold;
+	}
+
+	&__nav-list {
+		li {
+			margin-bottom: 12px;
+		}
+
+		a {
+			font-size: 12px;
+			color: #b3c6ff;
+
+			&:hover {
+				color: $color-white;
+			}
+		}
+	}
+
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		width: 200px;
+		flex-shrink: 0;
+	}
+
+	&__action-btn {
+		@include flex-between;
+		padding: 12px 16px;
+		border: 1px solid rgba(255, 255, 255, 0.3);
+		border-radius: 4px;
+		font-size: 14px;
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.1);
+		}
+	}
+
+	&__bottom {
+		@include flex-between;
+		padding: 24px 0;
+	}
+
+	&__legal {
+		display: flex;
+		gap: 24px;
+
+		a {
+			font-size: 12px;
+			color: #b3c6ff;
+		}
+	}
+
+	&__copyright {
+		font-size: 12px;
+		color: #b3c6ff;
+	}
+}

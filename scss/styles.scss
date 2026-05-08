@@ -1,0 +1,23 @@
+@charset "utf-8";
+@use "vars";//setting variable style and mixin
+@use "reset";//Basically uneditable document
+@use "base";//html,body (and common element) setting
+@use "module";//whole content layout, Common element and block style(layout component)
+@use "component";//Common button, title, text setting(small component)
+@use "utility";//PC, SP switching, Common Animation, hover action, change appearance by JS except for Header and Footer
+
+
+
+/* ====================================================
+Module
+==================================================== */
+@use "header";//header style Only
+@use "footer";//footer style Only
+
+
+
+/* ====================================================
+Pages
+==================================================== */
+@use "index";
+

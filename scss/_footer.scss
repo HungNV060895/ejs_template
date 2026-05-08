@@ -1,0 +1,117 @@
+@use "vars" as *;
+
+/* ====================================================
+Footer
+==================================================== */
+.btn-fix-contact{
+	width: 200px;
+	height: 60px;
+	color: #fff;
+	@include font-size(14);
+	font-weight: 500;
+	line-height: 60px;
+	text-align: center;
+	border-radius: 10px 0 0 0;
+	transition: .5s;
+	z-index: 100;
+	i{
+		margin-right: 10px;
+	}
+	@include mq(md-min){
+		display: none!important;
+	}
+	@include mq(){
+		position: fixed;
+		bottom: 0;
+		right: 0;
+		opacity: 0;
+		visibility: hidden;
+		&.is-show{
+			opacity: 1;
+			visibility: visible;
+		}
+		&.absolute{
+			opacity: 0;
+			visibility: hidden;
+			//top: -60px;
+			//bottom: auto;
+			//position: absolute;
+		}
+	}
+}
+
+
+.main-footer{
+	position: relative;
+	padding: 90px 0 40px;
+	color: #fff;
+	background: #880000;
+	@include mq(){
+		padding: 40px 0;
+	}
+	&__content{
+		@include flex(between, start, wrap);
+		margin-bottom: 45px;
+		@include mq(sm){
+			margin-bottom: 25px;
+		}
+	}
+	&__clmL{
+		width: 300px;
+		@include mq(){
+			margin-bottom: 40px;
+			width: 100%;
+			text-align: center;
+		}
+	}
+	&__address{
+		margin: 20px 0 10px;
+		@include fts(14,21);
+		font-weight: 400;
+	}
+	&__tel{
+		font-family: $font-en;
+		@include font-size(18);
+		font-weight: 500;
+	}
+	&__clmR{
+		width: calc(100% - 300px);
+		max-width: 600px;
+		@include mq(){
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+	&__nav{
+		@include flex(between, start, wrap);
+	}
+	&__menu{
+		width: 33.33%;
+		@include font-size(15);
+		font-weight: 500;
+		@include mq(sm){
+			width: 100%;
+			text-align: center;
+		}
+		&-item{
+			margin-bottom: 25px;
+		}
+	}
+	&__menusub{
+		margin-top: 25px;
+		@include font-size(13);
+		&-item{
+			margin-top: 12px;
+		}
+	}
+	&__copyright{
+		font-family: $font-en;
+		@include font-size(12);
+		text-align: right;
+		@include mq(){
+			text-align: center;
+		}
+	}
+}
+
+

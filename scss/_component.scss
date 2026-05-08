@@ -1,0 +1,202 @@
+@use "vars" as *;
+
+/* ====================================================
+Control
+==================================================== */
+.c-fc{ //font-color
+	&--ff{
+		color: #fff
+	}
+}
+
+
+
+.c-ft{//font-family
+	&--en{
+		font-family: $font-en;
+	}
+}
+
+
+
+.c-fw{//font-weight
+	&--lt{
+		font-weight: 300!important
+	}
+	&--rg{
+		font-weight: 400!important
+	}
+	&--md{
+		font-weight: 500!important
+	}
+	&--sbd{
+		font-weight: 600!important
+	}
+	&--bd{
+		font-weight: 700!important
+	}
+	&--bk{
+		font-weight: 900!important
+	}
+}
+
+
+
+.c-tx--v {//Vertical writing
+	//display: inline-block;
+	-ms-writing-mode: tb-rl;
+	writing-mode: vertical-rl;
+	&-pc{
+		@include mq(md-min) {
+			-ms-writing-mode: tb-rl;
+			writing-mode: vertical-rl;
+		}
+	}
+}
+
+
+
+.c-al{//text-align
+	&--c{
+		text-align: center!important
+	}
+	&--r{
+		text-align: right!important
+	}
+	&--l{
+		text-align: left!important
+	}
+}
+
+
+
+.c-val{//vertical-align
+	&--md{
+		vertical-align: middle
+	}
+	&--top{
+		vertical-align: top
+	}
+}
+
+
+
+
+
+/* ====================================================
+Component
+==================================================== */
+// Common Text style
+.c-txt{
+	&__01{//14/29
+		@include fts(14,29);
+		@include mq(sm) {
+			line-height: 1.8;
+		}
+	}
+}
+
+
+
+// Common Title style
+%__c-ttl__01{
+	display: inline-block;
+	position: relative;
+	padding-right: 64px;
+	@include font-size(15);
+	@include font-fm($font-en,400);
+	@include p-before(54px, 2px){
+		@include v-align;
+		right: 0;
+	}
+}
+
+
+.c-ttl{
+	&__01{
+		@extend %__c-ttl__01;
+		&--ff{
+			@extend %__c-ttl__01;
+			color: #fff;
+			&:before{
+				background: #fff;
+			}
+		}
+	}
+	&__02{
+		@include font-size(50);
+		line-height: 1.2;
+		font-weight: 700;
+		@include mq(lg){
+			font-size: c-max-size(34px, 6vw);
+		}
+		&-cap{
+			display: block;
+			margin-top: 15px;
+			font-size: 35%;
+			@include mq(sm){
+				font-size: c-max-size(15px, 35%);
+			}
+		}
+	}	
+}
+
+
+
+// Common Button style
+.c-btn__shine{
+	position: relative;
+	overflow: hidden;
+	&:before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: -75%;
+		width: 50%;
+		height: 100%;
+		background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,.3) 100%);
+		transform: skewX(-25deg);
+	}
+	&:hover{
+		@media (any-hover: hover) {
+			&:before {
+				animation: shine 0.7s;
+			}
+		}
+	}
+}
+@keyframes shine {
+	100% {
+		left: 125%;
+	}
+}
+
+
+
+%__c-btn__01{
+	position: relative;
+	padding-bottom: 20px;
+	width: 200px;
+	@include font-size(16);
+	font-weight: 500;
+	letter-spacing: .05em;
+	border-bottom: 2px solid #000;
+	transition: .2s;
+	@include p-before(18px, 18px){
+		top: 1px;
+		right: 0;
+		@include font-size(18);
+		@include ft-awesome(f30b);
+		transition: .2s;
+	}
+}
+
+
+
+
+.c-btn__01{
+	@extend %__c-btn__01;
+}
+
+
+
