@@ -28,6 +28,7 @@ import babel       from 'gulp-babel';
 import terser      from 'gulp-terser';
 import mergeStream from 'merge-stream';
 import changed     from 'gulp-changed';
+import { deleteSync } from 'del';
 
 import { readFile } from 'fs/promises';            // ⑧ async 化
 
